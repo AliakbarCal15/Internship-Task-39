@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --flipkart-blue: #2874f0;
+  --flipkart-yellow: #ffd700;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[#2874f0] text-white px-4 py-2 rounded hover:bg-[#1c5bb7] transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-[#fb641b] text-white px-4 py-2 rounded hover:bg-[#e85d19] transition-colors;
+  }
+}
+
+/* Swiper custom styles */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white !important;
+  background: rgba(0, 0, 0, 0.3);
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px !important;
+}
+
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.7 !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}
