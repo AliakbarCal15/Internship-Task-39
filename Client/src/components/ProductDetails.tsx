@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Star, Truck, Shield, RefreshCcw, MapPin, ChevronDown, Check, ShoppingCart, CreditCard } from 'lucide-react';
 import { addToCart } from '../store/cartSlice';
+import { Reviews } from './Reviews';
 import clsx from 'clsx';
 
 interface Review {
@@ -61,7 +62,7 @@ export function ProductDetails() {
       id: '1',
       user: 'John Doe',
       rating: 5,
-      comment: 'Excellent phone! The camera quality is outstanding and the battery life is impressive.',
+      comment: 'Excellent phone! The camera quality is outstanding and the battery life is impressive. The ProMotion display makes everything super smooth, and the A15 chip handles everything I throw at it with ease. The new macro photography feature is a game-changer for close-up shots.',
       date: '2024-03-15',
       isVerified: true,
       images: [
@@ -73,9 +74,39 @@ export function ProductDetails() {
       id: '2',
       user: 'Jane Smith',
       rating: 4,
-      comment: 'Great device but a bit pricey. The ProMotion display is amazing!',
+      comment: 'Great device but a bit pricey. The ProMotion display is amazing and the cameras are top-notch. Battery life could be better though.',
       date: '2024-03-10',
       isVerified: true,
+    },
+    {
+      id: '3',
+      user: 'Mike Johnson',
+      rating: 5,
+      comment: 'Best iPhone ever! The camera system is incredible, especially in low light. Face ID works flawlessly even with a mask on.',
+      date: '2024-03-08',
+      isVerified: true,
+      images: [
+        'https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&w=400&q=80',
+      ],
+    },
+    {
+      id: '4',
+      user: 'Sarah Williams',
+      rating: 3,
+      comment: 'Good phone but very expensive. The camera bump is quite large and makes the phone wobble on flat surfaces.',
+      date: '2024-03-05',
+      isVerified: true,
+    },
+    {
+      id: '5',
+      user: 'David Brown',
+      rating: 5,
+      comment: 'Professional photographer here - the camera system is revolutionary. ProRAW gives so much flexibility in post-processing.',
+      date: '2024-03-01',
+      isVerified: true,
+      images: [
+        'https://images.unsplash.com/photo-1590661636248-3de2bf646834?auto=format&fit=crop&w=400&q=80',
+      ],
     },
   ];
 
@@ -88,6 +119,11 @@ export function ProductDetails() {
   const checkDelivery = () => {
     // Mock delivery check - Replace with API call
     return pincode.length === 6;
+  };
+
+  const handleAddReview = (reviewData: { rating: number; comment: string; images: string[] }) => {
+    // Mock API call - Replace with actual API integration
+    console.log('New review:', reviewData);
   };
 
   return (
@@ -128,7 +164,7 @@ export function ProductDetails() {
                 <span>{product.rating}</span>
                 <Star className="w-4 h-4 ml-0.5 fill-current" />
               </div>
-              <span className="text-gray-500 text-sm ml-2">Based on 1,234 ratings</span>
+              <span className="text-gray-500 text-sm ml-2">Based on {reviews.length} ratings</span>
             </div>
           </div>
 
@@ -252,39 +288,11 @@ export function ProductDetails() {
 
       {/* Reviews Section */}
       <div className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">Ratings & Reviews</h2>
-        <div className="space-y-6">
-          {reviews.map((review) => (
-            <div key={review.id} className="border-b pb-6">
-              <div className="flex items-center space-x-2">
-                <div className="flex items-center bg-green-600 text-white px-2 py-0.5 rounded">
-                  <span>{review.rating}</span>
-                  <Star className="w-4 h-4 ml-0.5 fill-current" />
-                </div>
-                {review.isVerified && (
-                  <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded">
-                    Verified Purchase
-                  </span>
-                )}
-              </div>
-              <p className="mt-2 text-gray-700">{review.comment}</p>
-              {review.images && (
-                <div className="mt-3 flex space-x-2">
-                  {review.images.map((image, index) => (
-                    <div key={index} className="w-20 h-20 rounded-lg overflow-hidden">
-                      <img src={image} alt={`Review ${index + 1}`} className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-                </div>
-              )}
-              <div className="mt-2 flex items-center text-sm text-gray-500">
-                <span>{review.user}</span>
-                <span className="mx-2">•</span>
-                <span>{new Date(review.date).toLocaleDateString()}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Reviews
+          productId={product.id}
+          reviews={reviews}
+          onAddReview={handleAddReview}
+        />
       </div>
     </div>
   );
