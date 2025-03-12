@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Search, ShoppingCart, Heart, User, ChevronDown } from 'lucide-react';
+import { ShoppingCart, Heart, User, ChevronDown } from 'lucide-react';
 import { RootState } from '../store';
+import { SearchBar } from './SearchBar';
 import clsx from 'clsx';
 
 const categories = [
@@ -15,7 +16,6 @@ const categories = [
 ];
 
 export function Navbar() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -32,18 +32,7 @@ export function Navbar() {
           </Link>
 
           {/* Search Bar */}
-          <div className="flex-1 max-w-2xl mx-8">
-            <div className="relative">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for products, brands and more"
-                className="w-full py-2 px-4 pr-10 rounded-sm text-black focus:outline-none"
-              />
-              <Search className="absolute right-3 top-2.5 text-gray-400" size={20} />
-            </div>
-          </div>
+          <SearchBar />
 
           {/* Navigation Items */}
           <div className="flex items-center space-x-6">
